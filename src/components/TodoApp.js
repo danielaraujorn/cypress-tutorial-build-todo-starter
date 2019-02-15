@@ -1,22 +1,23 @@
-import React, {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import TodoForm from './TodoForm'
-import TodoList from './TodoList'
-import Footer from './Footer'
-
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+import Footer from "./Footer";
 
 export default class TodoApp extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      todos: []
-    }
+      todos: [],
+      currentTodo: ""
+    };
+    this.handleNerTodoChange = this.handleNerTodoChange.bind(this);
   }
-
-
-
-  render () {
+  handleNerTodoChange(evt) {
+    this.setState({ currentTodo: evt.target.value });
+  }
+  render() {
     return (
       <Router>
         <div>
@@ -25,11 +26,15 @@ export default class TodoApp extends Component {
             <TodoForm />
           </header>
           <section className="main">
-            <TodoList todos={this.state.todos} />
+            <TodoList
+              handleNerTodoChange={this.handleNerTodoChange}
+              currentTodo={this.state.currentTodo}
+              todos={this.state.todos}
+            />
           </section>
           <Footer />
         </div>
       </Router>
-    )
+    );
   }
 }
